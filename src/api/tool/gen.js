@@ -36,6 +36,7 @@ export function updateGenTable(data) {
 
 // 导入表
 export function importTable(data) {
+
   return request({
     url: '/code/gen/importTable',
     method: 'post',

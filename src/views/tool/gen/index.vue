@@ -181,11 +181,13 @@ import importTable from "./importTable";
 import hljs from "highlight.js/lib/highlight";
 import "highlight.js/styles/github-gist.css";
 hljs.registerLanguage("java", require("highlight.js/lib/languages/java"));
+hljs.registerLanguage("go", require("highlight.js/lib/languages/go"));
 hljs.registerLanguage("xml", require("highlight.js/lib/languages/xml"));
 hljs.registerLanguage("html", require("highlight.js/lib/languages/xml"));
 hljs.registerLanguage("vue", require("highlight.js/lib/languages/xml"));
 hljs.registerLanguage("javascript", require("highlight.js/lib/languages/javascript"));
 hljs.registerLanguage("sql", require("highlight.js/lib/languages/sql"));
+hljs.registerLanguage("thrift", require("highlight.js/lib/languages/thrift"));
 
 export default {
   name: "Gen",
@@ -299,10 +301,18 @@ export default {
     },
     /** 高亮显示 */
     highlightedCode(code, key) {
-      const vmName = key.substring(key.lastIndexOf("/") + 1, key.indexOf(".vm"));
+      const vmName = key.substring(key.lastIndexOf("/") + 1, key.indexOf(".template"));
       var language = vmName.substring(vmName.indexOf(".") + 1, vmName.length);
-      const result = hljs.highlight(language, code || "", true);
-      return result.value || '&nbsp;';
+
+      // 尝试使用 Highlight.js 高亮代码
+      try {
+        const result = hljs.highlight(language, code || "", true);
+        return result.value || '&nbsp;';
+      } catch (error) {
+        // 如果 Highlight.js 不支持该语法，则返回原始的未高亮代码
+        console.error('Highlight.js does not support the specified language:', error);
+        return code || '&nbsp;';
+      }
     },
     /** 复制代码成功 */
     clipboardSuccess() {

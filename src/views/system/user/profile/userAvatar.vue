@@ -71,6 +71,7 @@ export default {
       title: "修改头像",
       options: {
         img: store.getters.avatar, //裁剪图片的地址
+        fileName: '', // 选择上传的文件名
         autoCrop: true, // 是否默认生成截图框
         autoCropWidth: 200, // 默认生成截图框宽度
         autoCropHeight: 200, // 默认生成截图框高度
@@ -125,6 +126,7 @@ export default {
         reader.readAsDataURL(file);
         reader.onload = () => {
           this.options.img = reader.result;
+          this.options.fileName = file.name;
         };
       }
     },
@@ -133,6 +135,7 @@ export default {
       this.$refs.cropper.getCropBlob(data => {
         let formData = new FormData();
         formData.append("avatarfile", data);
+        formData.append("fileName", this.options.fileName.substring(0, this.options.fileName.lastIndexOf('.')));
         uploadAvatar(formData).then(response => {
           this.open = false;
           this.options.img = process.env.VUE_APP_BASE_API + response.imgUrl;

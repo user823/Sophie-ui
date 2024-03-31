@@ -4,6 +4,7 @@ import { getToken, setToken, setExpiresIn, removeToken } from '@/utils/auth'
 const user = {
   state: {
     token: getToken(),
+    expires_in: null,
     id: '',
     name: '',
     avatar: '',
@@ -51,8 +52,10 @@ const user = {
           commit('SET_EXPIRES_IN', data.expires_in)
           resolve()
         }).catch(error => {
+          console.log(error)
           reject(error)
         })
+        console.log('登录成功')
       })
     },
 
@@ -90,7 +93,7 @@ const user = {
         })
       })
     },
-    
+
     // 退出系统
     LogOut({ commit, state }) {
       return new Promise((resolve, reject) => {

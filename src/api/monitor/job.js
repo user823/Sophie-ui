@@ -17,6 +17,25 @@ export function getJob(jobId) {
   })
 }
 
+export function addJobTest(jobId, jobName, jobGroup, invokeTarget, cronExpression, misfirePolicy, concurrent, status) {
+  const jsonData = `{
+    "jobId": "${jobId}",
+    "jobName": "${jobName}",
+    "jobGroup": "${jobGroup}",
+    "invokeTarget": "${invokeTarget}",
+    "cronExpression": "${cronExpression}",
+    "misfirePolicy": "${misfirePolicy}",
+    "concurrent": "${concurrent}",
+    "status": "${status}"
+    }`;
+
+  return request({
+    url: '/schedule/job',
+    method: 'post',
+    data: jsonData
+  });
+}
+
 // 新增定时任务调度
 export function addJob(data) {
   return request({
@@ -55,7 +74,6 @@ export function changeJobStatus(jobId, status) {
     data: data
   })
 }
-
 
 // 定时任务立即执行一次
 export function runJob(jobId, jobGroup) {

@@ -113,7 +113,7 @@
               v-hasPermi="['system:user:remove']"
             >删除</el-button>
           </el-col>
-          <el-col :span="1.5">
+          <!-- <el-col :span="1.5">
             <el-button
               type="info"
               plain
@@ -122,7 +122,7 @@
               @click="handleImport"
               v-hasPermi="['system:user:import']"
             >导入</el-button>
-          </el-col>
+          </el-col> -->
           <el-col :span="1.5">
             <el-button
               type="warning"
@@ -309,7 +309,7 @@
     </el-dialog>
 
     <!-- 用户导入对话框 -->
-    <el-dialog :title="upload.title" :visible.sync="upload.open" width="400px" append-to-body>
+    <!-- <el-dialog :title="upload.title" :visible.sync="upload.open" width="400px" append-to-body>
       <el-upload
         ref="upload"
         :limit="1"
@@ -336,7 +336,7 @@
         <el-button type="primary" @click="submitFileForm">确 定</el-button>
         <el-button @click="upload.open = false">取 消</el-button>
       </div>
-    </el-dialog>
+    </el-dialog> -->
   </div>
 </template>
 
@@ -389,20 +389,20 @@ export default {
         label: "label"
       },
       // 用户导入参数
-      upload: {
-        // 是否显示弹出层（用户导入）
-        open: false,
-        // 弹出层标题（用户导入）
-        title: "",
-        // 是否禁用上传
-        isUploading: false,
-        // 是否更新已经存在的用户数据
-        updateSupport: 0,
-        // 设置上传的请求头部
-        headers: { Authorization: "Bearer " + getToken() },
-        // 上传的地址
-        url: process.env.VUE_APP_BASE_API + "/system/user/importData"
-      },
+      // upload: {
+      //   // 是否显示弹出层（用户导入）
+      //   open: false,
+      //   // 弹出层标题（用户导入）
+      //   title: "",
+      //   // 是否禁用上传
+      //   isUploading: false,
+      //   // 是否更新已经存在的用户数据
+      //   updateSupport: 0,
+      //   // 设置上传的请求头部
+      //   headers: { Authorization: "Bearer " + getToken() },
+      //   // 上传的地址
+      //   url: process.env.VUE_APP_BASE_API + "/system/user/importData"
+      // },
       // 查询参数
       queryParams: {
         pageNum: 1,
@@ -640,10 +640,10 @@ export default {
       }, `user_${new Date().getTime()}.xlsx`)
     },
     /** 导入按钮操作 */
-    handleImport() {
-      this.upload.title = "用户导入";
-      this.upload.open = true;
-    },
+    // handleImport() {
+    //   this.upload.title = "用户导入";
+    //   this.upload.open = true;
+    // },
     /** 下载模板操作 */
     importTemplate() {
       this.download('system/user/importTemplate', {
@@ -654,13 +654,13 @@ export default {
       this.upload.isUploading = true;
     },
     // 文件上传成功处理
-    handleFileSuccess(response, file, fileList) {
-      this.upload.open = false;
-      this.upload.isUploading = false;
-      this.$refs.upload.clearFiles();
-      this.$alert("<div style='overflow: auto;overflow-x: hidden;max-height: 70vh;padding: 10px 20px 0;'>" + response.msg + "</div>", "导入结果", { dangerouslyUseHTMLString: true });
-      this.getList();
-    },
+    // handleFileSuccess(response, file, fileList) {
+    //   this.upload.open = false;
+    //   this.upload.isUploading = false;
+    //   this.$refs.upload.clearFiles();
+    //   this.$alert("<div style='overflow: auto;overflow-x: hidden;max-height: 70vh;padding: 10px 20px 0;'>" + response.msg + "</div>", "导入结果", { dangerouslyUseHTMLString: true });
+    //   this.getList();
+    // },
     // 提交上传文件
     submitFileForm() {
       this.$refs.upload.submit();
