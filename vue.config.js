@@ -11,6 +11,10 @@ const name = process.env.VUE_APP_TITLE || '雪菲管理系统' // 网页标题
 
 const port = process.env.port || process.env.npm_config_port || 80 // 端口
 
+const target_ip = process.env.target_ip || 'localhost'
+
+const target_port = process.env.target_port || 8080
+
 // vue.config.js 配置说明
 //官方vue.config.js 参考文档 https://cli.vuejs.org/zh/config/#css-loaderoptions
 // 这里只列一部分，具体配置参考文档
@@ -35,7 +39,7 @@ module.exports = {
     proxy: {
       // detail: https://cli.vuejs.org/config/#devserver-proxy
       [process.env.VUE_APP_BASE_API]: {
-        target: `http://localhost:8080`,
+        target: `http://${target_ip}:${target_port}`,
         changeOrigin: true,
         pathRewrite: {
           ['^' + process.env.VUE_APP_BASE_API]: ''
