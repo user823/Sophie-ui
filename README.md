@@ -22,7 +22,7 @@ npm run dev
 export NODE_OPTIONS=--openssl-legacy-provider
 ```
 
-浏览器访问 http://localhost:80
+浏览器访问 http://localhost:1024
 
 ## 发布
 
